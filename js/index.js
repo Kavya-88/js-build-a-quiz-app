@@ -16,6 +16,28 @@ window.addEventListener("DOMContentLoaded", () => {
   start.addEventListener("click", function (e) {
     document.querySelector("#quizBlock").style.display = "block";
     start.style.display = "none";
+    //timer
+    const time = document.querySelector('#time');
+    let timeSecond = 60;
+    displayTime(timeSecond)
+    const countDown = setInterval (()=>{
+      timeSecond--;
+      displayTime(timeSecond);
+      if(timeSecond <= 0 || timeSecond < 1){
+        endTime();
+        clearInterval(countDown);
+      }
+    },1000)
+    function displayTime(second){
+      const min = Math.floor(second / 60);
+      const sec = Math.floor(second % 60);
+      time.innerHTML = `${min<10 ? '0': ''}${min}:${sec<10 ? '0': ''}${sec}`
+    }
+    function endTime() {
+      time.innerHTML = 'Time out'
+    }
+
+
   });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
@@ -36,6 +58,16 @@ window.addEventListener("DOMContentLoaded", () => {
       o: ["Sydney", "Canberra", "Melbourne", "Perth"],
       a: 1,
     },
+    {
+      q: "What is Australia's national animal?",
+      o: ["Kangaroo", "Lion", "Tiger", "Elephant"],
+      a: 0,
+    },
+    {
+      q: "Which is the tallest animal?",
+      o: ["Elephant", "Fox", "Giraffe", "Camel"],
+      a: 2,
+    },
   ];
 
   // function to Display the quiz questions and answers from the object
@@ -52,6 +84,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     </ul>
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
+
     });
   };
 
@@ -68,15 +101,49 @@ window.addEventListener("DOMContentLoaded", () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = "green"
         }
 
-        if (radioElement.checked) {
-          // code for task 1 goes here
-        }
-      }
-    });
-  };
+        if (radioElement.checked && quizItem.a === i) {
+          // code for task 2 goes here
+          score +=1;
+          }
+          
+    }
+    let scoreDisplay = document.querySelector('#score')
+scoreDisplay.innerHTML = `Score is : ${score}`;
+//hiding submit button
+submitButton.style.display = "none";
+//disable all question after submitting
+const disableElements = (event) => {
+  for (var i = 0; i < event.length; i++) {
+    event[i].disable = true;
+    disableElements(event[i].children);
+  }
+};
+
+//calling disable function
+const quizWrap = document.querySelector('#quizWrap');
+disableElements(quizWrap.children);
+  });
+  
+};
+//If submit button clicked
+const submitButton = document.getElementById('btnSubmit')
+submitButton.addEventListener('click', event => {
+  calculateScore();
+});
 
   // call the displayQuiz function
   displayQuiz();
+  submit.addEventListener('click', calculateScore);
+ 
+  //if reset button clicked
+ const reset = document.querySelector('btnReset');
+ reset.addEventListener('click', () => {
+   location.reload();
+ });
+ 
 });
+
+
