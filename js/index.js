@@ -16,9 +16,10 @@ window.addEventListener("DOMContentLoaded", () => {
   start.addEventListener("click", function (e) {
     document.querySelector("#quizBlock").style.display = "block";
     start.style.display = "none";
+   });
     //timer
     const time = document.querySelector('#time');
-    let timeSecond = 5;
+    let timeSecond = 20;
     displayTime(timeSecond)
     const countDown = setInterval (()=>{
       timeSecond--;
@@ -26,11 +27,11 @@ window.addEventListener("DOMContentLoaded", () => {
       if(timeSecond <= 0 || timeSecond < 1){
         endTime();
         
-        clearInterval(countDown);
+        // clearInterval(countDown);
         if(timeSecond == 0) {
           calculateScore();
-        }
-      }
+        } 
+      } 
     },1000)
     function displayTime(second){
       const min = Math.floor(second / 60);
@@ -40,10 +41,6 @@ window.addEventListener("DOMContentLoaded", () => {
     function endTime() {
       time.innerHTML = 'Time out'
     }
-    
-
-
-  });
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -133,11 +130,14 @@ disableElements(quizWrap.children);
   });
   
 };
+
 //If submit button clicked
 const submitButton = document.getElementById('btnSubmit')
 submitButton.addEventListener('click', event => {
   calculateScore();
+  window.clearInterval(countDown);
 });
+
 
   // call the displayQuiz function
   displayQuiz();
