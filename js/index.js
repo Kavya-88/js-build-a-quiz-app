@@ -18,14 +18,18 @@ window.addEventListener("DOMContentLoaded", () => {
     start.style.display = "none";
     //timer
     const time = document.querySelector('#time');
-    let timeSecond = 60;
+    let timeSecond = 5;
     displayTime(timeSecond)
     const countDown = setInterval (()=>{
       timeSecond--;
       displayTime(timeSecond);
       if(timeSecond <= 0 || timeSecond < 1){
         endTime();
+        
         clearInterval(countDown);
+        if(timeSecond == 0) {
+          calculateScore();
+        }
       }
     },1000)
     function displayTime(second){
@@ -36,6 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function endTime() {
       time.innerHTML = 'Time out'
     }
+    
 
 
   });
@@ -136,12 +141,12 @@ submitButton.addEventListener('click', event => {
 
   // call the displayQuiz function
   displayQuiz();
-  submit.addEventListener('click', calculateScore);
+  
  
   //if reset button clicked
- const reset = document.querySelector('btnReset');
+ const reset = document.querySelector("#btnReset");
  reset.addEventListener('click', () => {
-   location.reload();
+   window.location.reload();
  });
  
 });
