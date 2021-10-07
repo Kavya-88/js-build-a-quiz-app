@@ -103,7 +103,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         if (quizItem.a == i) {
           //change background color of li element here
-          liElement.style.backgroundColor = "green"
+          liElement.style.backgroundColor = "lightgreen"
         }
 
         if (radioElement.checked && quizItem.a === i) {
@@ -114,6 +114,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     let scoreDisplay = document.querySelector('#score')
 scoreDisplay.innerHTML = `Score is : ${score}`;
+
 //hiding submit button
 submitButton.style.display = "none";
 //disable all question after submitting
