@@ -104,7 +104,10 @@ window.addEventListener("DOMContentLoaded", () => {
         if (quizItem.a == i) {
           //change background color of li element here
           liElement.style.backgroundColor = "lightgreen"
-        }
+        } 
+        // if (quizItem.a = !i) {
+        //   liElement.style.backgroundColor = "red"
+        // }
 
         if (radioElement.checked && quizItem.a === i) {
           // code for task 2 goes here
@@ -145,7 +148,7 @@ submitButton.addEventListener('click', event => {
   
  
   //if reset button clicked
- const reset = document.querySelector("#btnReset");
+ const reset = document.querySelector('#btnReset');
  reset.addEventListener('click', () => {
    window.location.reload();
  });
